@@ -2,44 +2,23 @@ import React, { useState, useEffect } from "react";
 import { View, Text, Image } from "react-native";
 import { useWeather } from "../../context/weather-context";
 
-type ChoosenLocation = {
-  country: string;
-  lat: number;
-  localtime: string;
-  localtime_epoch: number;
-  lon: number;
-  name: string;
-  region: string;
-  tz_id: string;
-};
-
 const LocationDetails = () => {
   const { weatherData } = useWeather();
-  const initialLocation: ChoosenLocation = {
-    country: "",
-    lat: 0,
-    localtime: "",
-    localtime_epoch: 0,
-    lon: 0,
-    name: "",
-    region: "",
-    tz_id: "",
-  };
-  const [choosenLocation, setChoosenLocation] =
-    useState<ChoosenLocation>(initialLocation);
-  const [currentStatus, setCurrentStatus] = useState<Record<any, any>>();
+  const [choosenLocation, setChoosenLocation] = useState<any>(null);
 
   useEffect(() => {
-    if (weatherData) setChoosenLocation(weatherData.location);
+    if (weatherData) {
+      setChoosenLocation(weatherData);
+    }
   }, [weatherData]);
 
   return (
     <View className="mx-4 justify-around flex-1 mb-2">
       {/* location details */}
       <Text className="text-white text-center text-2xl font-bold">
-        {choosenLocation.name},{" "}
+        {choosenLocation?.location.name},{" "}
         <Text className="text-lg font-semibold text-gray-300">
-          {choosenLocation.country}
+          {choosenLocation?.location.country}
         </Text>
       </Text>
       {/* Weather image */}
@@ -52,10 +31,10 @@ const LocationDetails = () => {
       {/* Degree celcius */}
       <View className="space-y-2">
         <Text className="text-center font-bold text-white text-6xl ml-5">
-          23&#176;
+          {choosenLocation?.current.temp_c}&#176;
         </Text>
         <Text className="text-center text-white text-xl tracking-widest">
-          Partly Cloudy
+          {choosenLocation?.current.condition.text}
         </Text>
       </View>
       {/* other status */}
