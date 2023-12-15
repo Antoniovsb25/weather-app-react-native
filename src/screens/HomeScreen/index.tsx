@@ -6,7 +6,11 @@ import {
   SafeAreaView,
   TouchableOpacity,
   Text,
+  ScrollView,
 } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
+import LocationDetails from "../../components/LocationDetails";
+import NextDaysForecast from "../../components/NextDaysForecast";
 
 const HomeScreen = () => {
   return (
@@ -18,7 +22,8 @@ const HomeScreen = () => {
       />
       <SafeAreaView className="flex-1">
         <SearchBar />
-
+        <LocationDetails />
+        <NextDaysForecast />
       </SafeAreaView>
     </View>
   );

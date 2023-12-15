@@ -1,14 +1,29 @@
 import React, { useState } from "react";
-import { View, Text, TouchableOpacity } from "react-native";
+import { ScrollView, Text, TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import { type Location } from "../../index";
+import { fetchWeatherForecast } from "../../../../api/weather";
+import { useWeather } from "../../../../context/weather-context";
 
-const SearchOptions = () => {
-  const [locations, setLocations] = useState([1, 2, 3]);
-  const handleLocation = (location) => {
-    console.log(location);
+type SearchOptionsProps = {
+  locations: Location[];
+  setResetLocation: () => void;
+};
+
+const SearchOptions = ({ locations, setResetLocation }: SearchOptionsProps) => {
+  const { setWeatherForecast } = useWeather();
+  
+  const handleLocation = (location: Location) => {
+    setResetLocation();
+    fetchWeatherForecast({ cityName: location.name, days: "3" })
+      .then((data) => {
+        setWeatherForecast(data);
+      })
+      .catch((err) => console.error("something went wrong", err));
   };
+
   return (
-    <View className="absolute w-full bg-gray-300 top-16 rounded-3xl">
+    <ScrollView className="absolute w-full bg-gray-300 top-16 rounded-3xl">
       {locations.map((location, index) => (
         <TouchableOpacity
           onPress={() => handleLocation(location)}
@@ -19,11 +34,11 @@ const SearchOptions = () => {
         >
           <Ionicons name="location-outline" size={24} />
           <Text className="text-black text-lg ml-2">
-            London, United Kingdom
+            {location.name}, {location.country}
           </Text>
         </TouchableOpacity>
       ))}
-    </View>
+    </ScrollView>
   );
 };
 
