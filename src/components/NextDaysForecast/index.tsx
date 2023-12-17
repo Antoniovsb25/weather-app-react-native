@@ -8,7 +8,7 @@ const NextDaysForecast = () => {
   const { weatherData } = useWeather();
   return (
     <View className="mb-2 space-y-3">
-      <View className="flex-row items-center mx-5 space-x-2">
+      <View className="flex-row items-center m-4 space-x-2">
         <Ionicons name="calendar-outline" size={22} color={"white"} />
         <Text className="text-white text-base">Daily Forecast</Text>
       </View>

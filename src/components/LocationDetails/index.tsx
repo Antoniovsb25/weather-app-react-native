@@ -20,7 +20,7 @@ const LocationDetails = () => {
   }, [weatherData]);
 
   return (
-    <View className="mx-4 justify-around flex-1 mb-2">
+    <View className="mx-4 my-8 justify-around flex-1">
       {/* location details */}
       <Text className="text-white text-center text-2xl font-bold">
         {choosenLocation?.location.name},{" "}
@@ -30,7 +30,7 @@ const LocationDetails = () => {
       </Text>
       {/* Weather image */}
       <View className="flex-row justify-center">
-        <Image source={selectedImage} className="w-52 h-52" />
+        <Image source={selectedImage} className="w-52 h-52 my-8" />
       </View>
       {/* Degree celcius */}
       <View className="space-y-2">
@@ -42,7 +42,7 @@ const LocationDetails = () => {
         </Text>
       </View>
       {/* other status */}
-      <View className="flex-row justify-between mx-4">
+      <View className="flex-row justify-between mx-4 mt-6">
         <View className="flex-row space-x-2 items-center">
           <Image
             source={require("../../../assets/icons/wind.png")}

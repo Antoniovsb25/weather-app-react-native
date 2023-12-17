@@ -3,10 +3,10 @@ import SearchBar from "../../components/SearchBar";
 import {
   View,
   Image,
-  SafeAreaView,
   Text,
   ActivityIndicator,
   StatusBar,
+  ScrollView,
 } from "react-native";
 import LocationDetails from "../../components/LocationDetails";
 import NextDaysForecast from "../../components/NextDaysForecast";
@@ -45,25 +45,25 @@ const HomeScreen = () => {
         source={require("../../../assets/images/bg.png")}
         className="absolute h-[150%] w-full"
       />
-      <SafeAreaView className="flex-1">
-        <SearchBar />
-        {loading ? (
-          <View className="flex-1 items-center justify-center">
-            <ActivityIndicator size={"large"} />
-          </View>
-        ) : weatherData ? (
-          <>
-            <LocationDetails />
-            <NextDaysForecast />
-          </>
-        ) : (
-          <View className="flex-1 items-center justify-center">
-            <Text className="text-white text-3xl font-semibold">
-              No place chosen yet
-            </Text>
-          </View>
-        )}
-      </SafeAreaView>
+      <ScrollView>
+          <SearchBar />
+          {loading ? (
+            <View className="items-center justify-center mt-[75%]">
+              <ActivityIndicator size={"large"} />
+            </View>
+          ) : weatherData ? (
+            <>
+              <LocationDetails />
+              <NextDaysForecast />
+            </>
+          ) : (
+            <View className="flex-1 items-center justify-center">
+              <Text className="text-white text-3xl font-semibold">
+                No place chosen yet
+              </Text>
+            </View>
+          )}
+      </ScrollView>
     </View>
   );
 };
