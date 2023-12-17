@@ -2,6 +2,7 @@
 <a name="readme-top"></a>
 
 
+
 <!-- TABLE OF CONTENTS -->
 <details>
   <summary>Table of Contents</summary>
@@ -25,7 +26,7 @@
 </details>
 
 
-
+![image](https://github.com/Antoniovsb25/weather-app-react-native/assets/37356545/7fcb0ac2-a1b2-4c4e-8c4e-2ed425d8ec3e)
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
