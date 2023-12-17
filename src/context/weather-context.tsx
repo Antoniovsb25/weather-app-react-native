@@ -2,8 +2,10 @@
 import React, { createContext, useContext, useState, ReactNode } from "react";
 
 type WeatherContextType = {
-  weatherData: any; 
-  setWeatherForecast: (data: any) => void; 
+  weatherData: any;
+  setWeatherForecast: (data: any) => void;
+  loading: boolean;
+  setLoading: (isLoading: boolean) => void;
 };
 
 const WeatherContext = createContext<WeatherContextType | undefined>(undefined);
@@ -16,13 +18,20 @@ export const WeatherProvider: React.FC<WeatherProviderProps> = ({
   children,
 }) => {
   const [weatherData, setWeatherData] = useState<any | null>(null);
+  const [loading, setLoading] = useState(false);
 
   const setWeatherForecast = (data: any) => {
     setWeatherData(data);
   };
 
+  const setLoadingSpinner = (isLoading: boolean) => {
+    setLoading(isLoading);
+  };
+
   return (
-    <WeatherContext.Provider value={{ weatherData, setWeatherForecast }}>
+    <WeatherContext.Provider
+      value={{ weatherData, setWeatherForecast, loading, setLoading }}
+    >
       {children}
     </WeatherContext.Provider>
   );

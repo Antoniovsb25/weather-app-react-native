@@ -11,15 +11,20 @@ type SearchOptionsProps = {
 };
 
 const SearchOptions = ({ locations, setResetLocation }: SearchOptionsProps) => {
-  const { setWeatherForecast } = useWeather();
-  
+  const { setWeatherForecast, setLoading } = useWeather();
+
   const handleLocation = (location: Location) => {
     setResetLocation();
-    fetchWeatherForecast({ cityName: location.name, days: "3" })
+    setLoading(true);
+    fetchWeatherForecast({ cityName: location.name, days: "5" })
       .then((data) => {
         setWeatherForecast(data);
+        setLoading(false);
       })
-      .catch((err) => console.error("something went wrong", err));
+      .catch((err) => {
+        console.error("something went wrong", err);
+        setLoading(false);
+      });
   };
 
   return (

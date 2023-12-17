@@ -8,7 +8,11 @@ export default function App() {
     <>
       <NavigationContainer>
         <WeatherProvider>
-          <StatusBar />
+          <StatusBar
+            translucent
+            backgroundColor="rgba(0, 0, 0, 0)"
+            barStyle="default"
+          />
           <AppNavigation />
         </WeatherProvider>
       </NavigationContainer>

@@ -1,9 +1,11 @@
 import React from "react";
-import { View, Text, ScrollView, Image } from "react-native";
+import { View, Text, ScrollView } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import DailyForecastCard from "./components/DailyForecastCard";
+import { useWeather } from "../../context/weather-context";
 
 const NextDaysForecast = () => {
+  const { weatherData } = useWeather();
   return (
     <View className="mb-2 space-y-3">
       <View className="flex-row items-center mx-5 space-x-2">
@@ -15,10 +17,12 @@ const NextDaysForecast = () => {
         contentContainerStyle={{ paddingHorizontal: 15 }}
         showsHorizontalScrollIndicator={false}
       >
-        <DailyForecastCard />
-        <DailyForecastCard />
-        <DailyForecastCard />
-        <DailyForecastCard />
+        {weatherData &&
+          weatherData.forecast.forecastday.map((day: any, index: number) => (
+            <View key={index}>
+              <DailyForecastCard date={day.date} {...day.day} />
+            </View>
+          ))}
       </ScrollView>
     </View>
   );
