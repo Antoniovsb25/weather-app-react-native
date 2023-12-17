@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import { ScrollView, Text, TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { type Location } from "../../index";
 import { fetchWeatherForecast } from "../../../../api/weather";
 import { useWeather } from "../../../../context/weather-context";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { storeData } from "../../../../utils/asyncStorage";
 
 type SearchOptionsProps = {
   locations: Location[];
@@ -17,8 +19,9 @@ const SearchOptions = ({ locations, setResetLocation }: SearchOptionsProps) => {
     setResetLocation();
     setLoading(true);
     fetchWeatherForecast({ cityName: location.name, days: "5" })
-      .then((data) => {
+      .then((data: any) => {
         setWeatherForecast(data);
+        storeData("city", location.name);
         setLoading(false);
       })
       .catch((err) => {

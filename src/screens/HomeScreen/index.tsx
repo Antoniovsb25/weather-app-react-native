@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import SearchBar from "../../components/SearchBar";
 import {
   View,
@@ -11,9 +11,29 @@ import {
 import LocationDetails from "../../components/LocationDetails";
 import NextDaysForecast from "../../components/NextDaysForecast";
 import { useWeather } from "../../context/weather-context";
+import { getData } from "../../utils/asyncStorage";
+import { fetchWeatherForecast } from "../../api/weather";
 
 const HomeScreen = () => {
-  const { weatherData, loading } = useWeather();
+  const { weatherData, loading, setLoading, setWeatherForecast } = useWeather();
+
+  useEffect(() => {
+    const getInitialData = async () => {
+      const lastCitySearched = await getData("city");
+      if (lastCitySearched) {
+        fetchWeatherForecast({ cityName: lastCitySearched, days: "5" })
+          .then((data: any) => {
+            setWeatherForecast(data);
+            setLoading(false);
+          })
+          .catch((err) => {
+            console.error("something went wrong", err);
+            setLoading(false);
+          });
+      }
+    };
+    getInitialData();
+  }, []);
 
   return (
     <View
